@@ -90,19 +90,18 @@ class Apple(GameObject):
     def randomize_position(self, snake_positions):
         """
         Устанавливает случайное положение яблока на игровом поле —
-        задаёт атрибуту position новое значение.
+        задаёт атрибуту position новое значение. Исключает попадание яблока
+        на ячейку змеи.
         """
-        # Этот цикл исключает попадание яблока на ячейку змеи
         while True:
             x = randrange(0, SCREEN_WIDTH, GRID_SIZE)
             y = randrange(0, SCREEN_HEIGHT, GRID_SIZE)
-            if (x, y) not in snake_positions:
-                self.position = (
-                    (randrange(0, SCREEN_WIDTH, GRID_SIZE)),
-                    (randrange(0, SCREEN_HEIGHT, GRID_SIZE))
-                )
-            else:
+            if (x, y) in snake_positions:
                 break
+            self.position = (
+                (randrange(0, SCREEN_WIDTH, GRID_SIZE)),
+                (randrange(0, SCREEN_HEIGHT, GRID_SIZE))
+            )
 
     def draw(self):
         """Отрисовывает яблоко на игровой поверхности."""
